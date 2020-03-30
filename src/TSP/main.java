@@ -173,12 +173,8 @@ public class main extends javax.swing.JFrame {
         pizarra.add(viewPanel);
         pizarra.updateUI();
     }
-
+    
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        for (int z = 4; z <= 10; z++) {
-        for (int f = 0; f < 5; f++) {
-        nodos = z;
-            
         opt_lista = new ArrayList();
         double duration = 0;
         boolean flag = true;
@@ -228,18 +224,15 @@ public class main extends javax.swing.JFrame {
                         graph.getEdge(id).addAttribute("ui.label", peso);
                         graph.getEdge(id).addAttribute("peso", peso);
                         graph.getEdge(id).addAttribute("opt", "no");
-                        Edge edge = graph.getEdge(id);
-                        //graph.getEdge(i+"-"+j).addAttribute("color", peso);
+                        Edge edge = graph.getEdge(id);                        
                         styleSheet += "edge#" + edge.getId() + "{fill-color:black;size:1px;" + "text-size:15px;}";
                     }
                 }
             }
             ConnectedComponents conectedComponents = new ConnectedComponents();
-            conectedComponents.init(graph);
-            //reali<ar algoritmo
+            conectedComponents.init(graph);            
             conectedComponents.compute();
-
-            //agrega a la lista de puntos de articulacion el nodo si el grafo se dividio en subgrafos
+            
             if (conectedComponents.getConnectedComponentsCount() == 1) {
                 flag = false;
             } else {
@@ -257,21 +250,10 @@ public class main extends javax.swing.JFrame {
                 }
             }
             movimientos();
-/*
-            for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz[0].length; j++) {
-                    System.out.print(matriz[i][j] + " ");
-                }
-                System.out.println("");
-            }
-*/
             double pequeno = 99999999;
 
             long startTime = System.nanoTime();
-
-            //System.out.println("Factorial:");
-            //System.out.println(factorial_i(100));
-            //System.out.println("el tiempo fue de: " + "\n" + duration + " milisegundos");
+            
             for (int i = 0; i < codificacion.length; i++) {
                 ArrayList<Edge> ciclo2 = new ArrayList();
                 double peso = 0;
@@ -314,8 +296,7 @@ public class main extends javax.swing.JFrame {
             SingleGraph graph_copy = new SingleGraph("Grafo copia");
             Iterator<Node> nodos = graph.getNodeIterator();
             Iterator<Edge> aristas = graph.getEdgeIterator();
-
-            //copia cada nodo, agrega su label nombre si el parametro lo requiere
+            
             while (nodos.hasNext()) {
                 Node nodoTemp = nodos.next();
                 String nombreNodo = nodoTemp.toString();
@@ -334,26 +315,20 @@ public class main extends javax.swing.JFrame {
                 graph_copy.getEdge(contadorAristas).addAttribute("peso", (Object) aristaTemp.getAttribute("peso"));
                 graph_copy.getEdge(contadorAristas).addAttribute("ui.label", (Object) aristaTemp.getAttribute("peso"));
                 contadorAristas++;
-
             }
             graph_copy.addAttribute("ui.stylesheet", hola);
-            //graph_copy.display();
-            //MontarGrafo(sol, graph_copy, hola);
+            graph_copy.display();            
         }
-
-        graph.addAttribute("ui.stylesheet", styleSheet);
-        //MontarGrafo(normal, graph, styleSheet);
-        //graph.display();
+        graph.addAttribute("ui.stylesheet", styleSheet);        
+        graph.display();
         System.out.println(duration);
         Iterator NN = graph.getNodeIterator();
         cities = new ArrayList();
         while (NN.hasNext()) {
             Node next = (Node) NN.next();
-            String arreglo[] = ((String) next.getAttribute("punto")).split(",");
-            //System.out.println(next.getId() + " " + arreglo[0] + " " + arreglo[1]);
+            String arreglo[] = ((String) next.getAttribute("punto")).split(",");            
             float x = Float.parseFloat(arreglo[0] );
-            float y = Float.parseFloat(arreglo[1]);
-            //Use Java's built in Point2D type to hold a city
+            float y = Float.parseFloat(arreglo[1]);            
             Point2D city = new Point2D.Float(x, y);
             cities.add(city);
         }
@@ -373,8 +348,7 @@ public class main extends javax.swing.JFrame {
             y1 = Double.parseDouble(p1.substring(p1.indexOf(",") + 1, p1.length()));
             x2 = Double.parseDouble(p2.substring(0, p2.indexOf(",")));
             y2 = Double.parseDouble(p2.substring(p2.indexOf(",") + 1, p2.length()));
-            for (int i = 0; i < opt_lista.size() - 1; i++) {
-                //System.out.println("1: "+opt_lista.get(i));
+            for (int i = 0; i < opt_lista.size() - 1; i++) {                
                 String Poi1 = opt_lista.get(i);
                 String Poi2 = opt_lista.get(i + 1);
                 String PP1 = x1 + "," + y1;
@@ -411,12 +385,6 @@ public class main extends javax.swing.JFrame {
                 }
             }
 
-            /*
-            if(temp.getNode0().getAttribute("punto")){
-                ciclo.get(i).setAttribute("opt", "si");
-                String ID = ciclo.get(i).getId();
-                hola += "edge#" + ID + "{fill-color:green;size:4px;" + "text-size:15px;}";
-            }*/
         }
         SingleGraph graph_copy = new SingleGraph("Grafo copia");
         Iterator<Node> nodos = graph.getNodeIterator();
@@ -445,10 +413,8 @@ public class main extends javax.swing.JFrame {
             contadorAristas++;
 
         }
-        //graph_copy.addAttribute("ui.stylesheet", hola);
-        //graph_copy.display();
-        }
-        }
+        graph_copy.addAttribute("ui.stylesheet", hola);
+        graph_copy.display();        
     }//GEN-LAST:event_jButton1MouseClicked
     private double calcularDistancia(String p1, String p2) {
         double x1, y1, x2, y2;
@@ -487,43 +453,24 @@ public class main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_malaMouseClicked
 
-    public void nicolle() {
-        
-        //ArrayList<Point2D> cities = new ArrayList<>(Load.loadTSPLib("rl10.tsp")); //alter file name here.
+    public void nicolle() {              
         
         ArrayList<Point2D> nearestN;
         ArrayList<Point2D> result;
 
         double length = Length.routeLength(cities);
-        System.out.println(length);
-        //double time = System.currentTimeMillis() - startTime;
-        //System.out.println("Time taken to initialize is: " + time);
-        //System.out.println("Generating Nearest Neighbour Solution...");
-        
+        System.out.println(length);        
         nearestN = Neighbour.nearest(cities);
-        length = Length.routeLength(nearestN);
-        //System.out.println("Nearest neighbour solution complete, distance: " + length);
-        //System.out.println("Validating solution...");
-        Validator.validate(nearestN);
-        //time = System.currentTimeMillis() - startTime;
-        //System.out.println("Time taken for init and Nearest Neighbour: " + time);
-
-        //startTime = System.currentTimeMillis();
-        //System.out.println("Attempting 2-opt optimisation...");
+        length = Length.routeLength(nearestN);        
+        Validator.validate(nearestN);        
         long startTime = System.nanoTime();
         result = TwoOpt.alternate(nearestN);
         long endTime = System.nanoTime();
         double duration = (double)((endTime - startTime)/ 1e6);
         length = Length.routeLength(result);
-        System.out.println(length);
-        //System.out.println("Validating solution...");
-        Validator.validate(result);
-        //time = System.currentTimeMillis() - startTime;
-        System.out.println(duration);
-
-        //System.out.println("Resulting tour node count: " + result.size());
-        for (Point2D point2D : result) {
-            //System.out.println(point2D.getX() + "," + point2D.getY());
+        System.out.println(length);        
+        System.out.println(duration);       
+        for (Point2D point2D : result) {            
             opt_lista.add(point2D.getX() + "," + point2D.getY());
         }
     }
@@ -531,14 +478,6 @@ public class main extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
        
-        /*
-        for (int i = 0; i < matriz2.length; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(matriz2[i][j]+" ");
-            }
-            System.out.println("");
-        }*/
-
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void nicolleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nicolleMouseClicked
@@ -596,21 +535,14 @@ public class main extends javax.swing.JFrame {
                 }
             }
 
-            /*
-            if(temp.getNode0().getAttribute("punto")){
-                ciclo.get(i).setAttribute("opt", "si");
-                String ID = ciclo.get(i).getId();
-                hola += "edge#" + ID + "{fill-color:green;size:4px;" + "text-size:15px;}";
-            }*/
+
         }
         SingleGraph graph_copy = new SingleGraph("Grafo copia");
-        
-        //graph_copy.setAttribute(styleSheet, hola);
+                
         Iterator<Node> nodos = graph.getNodeIterator();
 
         Iterator<Edge> aristas = graph.getEdgeIterator();
-
-        //copia cada nodo, agrega su label nombre si el parametro lo requiere
+        
         while (nodos.hasNext()) {
             Node nodoTemp = nodos.next();
             String nombreNodo = nodoTemp.toString();
@@ -633,7 +565,7 @@ public class main extends javax.swing.JFrame {
 
         }
         graph_copy.addAttribute("ui.stylesheet", hola);
-        //graph_copy.display();
+        graph_copy.display();
     }//GEN-LAST:event_nicolleMouseClicked
     /*
 
@@ -689,7 +621,7 @@ public class main extends javax.swing.JFrame {
     ArrayList<ArrayList<Node>> lista_ciclos;
     ArrayList<String> opt_lista;
     int codificacion[][];
-    int nodos;
+    int nodos = 5;
     int x = 0;
     ArrayList<Point2D> cities; 
 }
