@@ -175,6 +175,11 @@ public class main extends javax.swing.JFrame {
     }
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        for (int z = 4; z <= 10; z++) {
+        for (int f = 0; f < 5; f++) {
+        nodos = z;
+            
+        opt_lista = new ArrayList();
         double duration = 0;
         boolean flag = true;
         ciclo = new ArrayList();
@@ -240,7 +245,7 @@ public class main extends javax.swing.JFrame {
             } else {
                 continue;
             }
-
+            opt_lista = new ArrayList();
             int filas = 1;
             for (int i = 1; i <= graph.getNodeCount(); i++) {
                 filas *= i;
@@ -290,7 +295,7 @@ public class main extends javax.swing.JFrame {
                     }
                 }
             }
-            System.out.println("TAMANO CAMINO: "+pequeno);
+            System.out.println(pequeno);
             long endTime = System.nanoTime();
             duration = (double) ((endTime - startTime) / 1e6);
             Iterator N = graph.getEdgeIterator();
@@ -332,14 +337,14 @@ public class main extends javax.swing.JFrame {
 
             }
             graph_copy.addAttribute("ui.stylesheet", hola);
-            graph_copy.display();
+            //graph_copy.display();
             //MontarGrafo(sol, graph_copy, hola);
         }
 
         graph.addAttribute("ui.stylesheet", styleSheet);
         //MontarGrafo(normal, graph, styleSheet);
-        graph.display();
-        System.out.println("DURATION OPTIMO: " + duration);
+        //graph.display();
+        System.out.println(duration);
         Iterator NN = graph.getNodeIterator();
         cities = new ArrayList();
         while (NN.hasNext()) {
@@ -440,8 +445,10 @@ public class main extends javax.swing.JFrame {
             contadorAristas++;
 
         }
-        graph_copy.addAttribute("ui.stylesheet", hola);
-        graph_copy.display();
+        //graph_copy.addAttribute("ui.stylesheet", hola);
+        //graph_copy.display();
+        }
+        }
     }//GEN-LAST:event_jButton1MouseClicked
     private double calcularDistancia(String p1, String p2) {
         double x1, y1, x2, y2;
@@ -481,14 +488,14 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_malaMouseClicked
 
     public void nicolle() {
-        long startTime = System.currentTimeMillis();
+        
         //ArrayList<Point2D> cities = new ArrayList<>(Load.loadTSPLib("rl10.tsp")); //alter file name here.
         
         ArrayList<Point2D> nearestN;
         ArrayList<Point2D> result;
 
         double length = Length.routeLength(cities);
-        System.out.println("Initial tour length is: " + length);
+        System.out.println(length);
         //double time = System.currentTimeMillis() - startTime;
         //System.out.println("Time taken to initialize is: " + time);
         //System.out.println("Generating Nearest Neighbour Solution...");
@@ -503,15 +510,16 @@ public class main extends javax.swing.JFrame {
 
         //startTime = System.currentTimeMillis();
         //System.out.println("Attempting 2-opt optimisation...");
+        long startTime = System.nanoTime();
         result = TwoOpt.alternate(nearestN);
         long endTime = System.nanoTime();
-        double duration = (double)((endTime - startTime)/1e6);
+        double duration = (double)((endTime - startTime)/ 1e6);
         length = Length.routeLength(result);
-        System.out.println("2-opt solution complete, distance: " + length);
+        System.out.println(length);
         //System.out.println("Validating solution...");
         Validator.validate(result);
         //time = System.currentTimeMillis() - startTime;
-        System.out.println("Time taken for 2 opt optimisation: " + duration);
+        System.out.println(duration);
 
         //System.out.println("Resulting tour node count: " + result.size());
         for (Point2D point2D : result) {
@@ -625,7 +633,7 @@ public class main extends javax.swing.JFrame {
 
         }
         graph_copy.addAttribute("ui.stylesheet", hola);
-        graph_copy.display();
+        //graph_copy.display();
     }//GEN-LAST:event_nicolleMouseClicked
     /*
 
@@ -679,9 +687,9 @@ public class main extends javax.swing.JFrame {
     ArrayList<Edge> ciclo = new ArrayList();
     ArrayList<ArrayList<String[]>> matrizMagica;
     ArrayList<ArrayList<Node>> lista_ciclos;
-    ArrayList<String> opt_lista = new ArrayList();
+    ArrayList<String> opt_lista;
     int codificacion[][];
-    int nodos = 3;
+    int nodos;
     int x = 0;
     ArrayList<Point2D> cities; 
 }
